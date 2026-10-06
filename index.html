@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-yellow-100 min-h-screen flex items-center justify-center">
+
+    <div class="bg-white w-full max-w-md p-6 rounded-xl shadow-lg">
+
+        <!-- Heading -->
+        <h1 class="text-4xl font-bold text-center text-black-600 mb-6">
+            My To-Do List
+        </h1>
+
+        <!-- Input Section -->
+        <div class="flex gap-2 mb-5">
+
+            <input 
+                type="text"
+                id="taskInput"
+                placeholder="Enter a task..."
+                class="flex-1 border border-gray-300 rounded-lg px-4 py-2 
+                       focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+
+            <button 
+                onclick="addTask()"
+                class="bg-rose-500 text-white px-5 py-2 rounded-lg 
+                       hover:bg-gray-900">
+                Add
+            </button>
+
+        </div>
+
+        <!-- Task List -->
+        <ul id="taskList" class="space-y-3"></ul>
+
+    </div>
+
+    <script>
+
+        function addTask() {
+
+            let input = document.getElementById("taskInput");
+            let task = input.value.trim();
+
+            if (task === "") {
+                alert("Please enter a task!");
+                return;
+            }
+
+            let li = document.createElement("li");
+
+            li.className = 
+                "flex items-center justify-between bg-gray-200 p-3 rounded-lg";
+
+            li.innerHTML = `
+                <span 
+                    class="task-text cursor-pointer flex-1"
+                    onclick="completeTask(this)">
+                    ${task}
+                </span>
+
+                <button 
+                    onclick="deleteTask(this)"
+                    class="bg-purple-500 text-white px-3 py-1 rounded-lg 
+                           hover:bg-red-600">
+                    Delete
+                </button>
+            `;
+
+            document.getElementById("taskList").appendChild(li);
+
+            input.value = "";
+        }
+
+        function completeTask(task) {
+
+            task.classList.toggle("line-through");
+            task.classList.toggle("text-gray-400");
+        }
+
+        function deleteTask(button) {
+
+            button.parentElement.remove();
+        }
+
+    </script>
+
+</body>
+</html>
